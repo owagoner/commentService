@@ -4,9 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import edu.cmu.odw.model.Comment;
 
 
-public interface CommentService extends CrudRepository<Comment, Long> {
-
-	public Comment findByipAddress(String ipAddress);
+public interface CommentService extends CrudRepository<Comment, Long>, CommentServiceCustom {
 	
-	public Iterable<Comment> findByEntityId(Long entityId);
 }

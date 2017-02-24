@@ -1,14 +1,15 @@
 package edu.cmu.odw.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.cmu.odw.model.Comment;
@@ -26,11 +27,16 @@ public class CommentController {
 		return commentService.findOne(id);
 	}
 	
-	@RequestMapping(value = "/api/comment/byentity")
-	@ResponseBody
-	public Iterable<Comment> comment(@RequestParam("entity") Long entityId) {
-		
-		return commentService.findByEntityId(entityId);
+	@RequestMapping(value = "/api/comment/latest/{num}")
+	public Iterable<Comment> comment(@PathVariable("num") int num) {
+		ArrayList<Comment> comments = (ArrayList<Comment>) commentService.findAll();		
+	    Collections.sort(comments);
+		return comments.stream().limit(num).collect(Collectors.toList());
+	}
+	
+	@RequestMapping(value = "/api/comment/entity/{num}")	
+	public Iterable<Comment> commentEntity(@PathVariable("num") long num) {		
+		return commentService.findByEntityId(num);
 	}
 	
 	@RequestMapping(value = "/api/comment", method = RequestMethod.POST)
