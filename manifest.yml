@@ -1,5 +1,5 @@
 ---
 applications:
-- name: CommentService-Application
+- name: CommentService
   path: ./build/libs/commentservice-0.0.1-SNAPSHOT.jar
   buildpack: https://github.com/cloudfoundry/java-buildpack.git

@@ -18,14 +18,16 @@ public class Comment implements Comparable<Comment>{
     private Long entityId;    
     private Timestamp timestamp;
     private String ipAddress;
+    private String username;
     
     public Comment() {}
     
-    public Comment(String text, Long entityId, Timestamp timestamp, String ipAddress) {		
+    public Comment(String text, Long entityId, Timestamp timestamp, String ipAddress, String username) {		
 		this.text = text;
 		this.entityId = entityId;
 		this.timestamp = timestamp;
 		this.ipAddress = ipAddress;
+		this.username = username;
 	}
 
 
@@ -104,6 +106,14 @@ public class Comment implements Comparable<Comment>{
 	@Override
 	public int compareTo(Comment c1) {
 		return this.timestamp.compareTo(c1.getTimestamp());
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }
 
